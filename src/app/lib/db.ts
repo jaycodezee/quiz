@@ -13,8 +13,8 @@
 
 import { MongoClient } from 'mongodb';
 
-const uri = process.env.MONGODB_URI; 
-const client = new MongoClient(uri, {useUnifiedTopology: true });
+const uri:any = process.env.MONGODB_URI; 
+const client = new MongoClient(uri);
 
 let db: any = null;
 
