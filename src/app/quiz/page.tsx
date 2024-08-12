@@ -1,7 +1,7 @@
-"use client";
-import React, { useState } from "react";
-import { quiz } from "../data";
-import { useRouter } from "next/navigation.js";
+'use client';
+import React, { useState } from 'react';
+import { quiz } from '../data';
+import { useRouter } from 'next/navigation.js';
 
 interface Question {
   id: number;
@@ -22,12 +22,10 @@ interface Result {
 
 const Page: React.FC = () => {
   const router = useRouter();
-  const [activeQuestion, setActiveQuestion] = useState<number>(0);
+    const [activeQuestion, setActiveQuestion] = useState<number>(0);
   const [selectedAnswer, setSelectedAnswer] = useState<boolean | null>(null);
   const [checked, setChecked] = useState<boolean>(false);
-  const [selectedAnswerIndex, setSelectedAnswerIndex] = useState<number | null>(
-    null
-  );
+  const [selectedAnswerIndex, setSelectedAnswerIndex] = useState<number | null>(null);
   const [showResult, setShowResult] = useState<boolean>(false);
   const [result, setResult] = useState<Result>({
     score: 0,
@@ -69,7 +67,7 @@ const Page: React.FC = () => {
 
   return (
     <div className="container">
-      <title>quiz web app</title>
+     <title>quiz web app</title>
       <h1>Quiz Page</h1>
       <div>
         <h2>
@@ -108,13 +106,11 @@ const Page: React.FC = () => {
             <p>Total Questions: {questions.length}</p>
             <p>Correct Answers: {result.correctAnswers}</p>
             <p>Wrong Answers: {result.wrongAnswers}</p>
-            <button onClick={() => router.push("/quiz")}>
-              Thank You Plz Restart The Quiz
-            </button>
+            <button onClick={() => window.location.reload()}>Thank You Plz Restart The Quiz</button>
           </div>
         )}
       </div>
-      <button onClick={() => router.push("/")}>Back to Home</button>
+      <button onClick={()=>router.push('/')}>Back to Home</button>
     </div>
   );
 };
