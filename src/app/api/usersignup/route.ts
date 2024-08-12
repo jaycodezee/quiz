@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import { query } from "../../lib/db";
+import { connectToDatabase } from "../../lib/db";
 
 export async function POST(req: NextRequest) {
   const { username, email, password } = await req.json();
@@ -29,17 +29,22 @@ export async function POST(req: NextRequest) {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   try {
-    const result = await query(
-      "INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING id, username, email",
-      [username, email, hashedPassword]
-    );
-    return NextResponse.json({ user: result.rows[0] }, { status: 200 });
+    const db = await connectToDatabase();
+    const existingUser = await db.collection('users').findOne({ email });
 
-  } catch (error: any) {
-    if (error.code === "23505") {
-      return NextResponse.json({ error: "Username already exists" }, { status: 409 });
-    } else {
-      return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
+    if (existingUser) {
+      return NextResponse.json({ error: "User already exists" }, { status: 409 });
     }
+
+    const result = await db.collection('users').insertOne({
+      username,
+      email,
+      password: hashedPassword,
+    });
+
+    return NextResponse.json({ user: { id: result.insertedId, username, email } }, { status: 201 });
+
+  } catch (error) {
+    return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
   }
 }

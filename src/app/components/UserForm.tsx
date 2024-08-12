@@ -31,7 +31,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ isLogin, toggleForm }) => {
     const data = await res.json();
 
     if (res.ok) {
-      console.log('Success:', data);
+      // console.log('Success:', data);
     //   toggleForm();
     localStorage.setItem('users', JSON.stringify(data.user)); 
     router.push('/quiz')
