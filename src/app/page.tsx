@@ -6,8 +6,8 @@ export default function Home() {
       <div className="container">
       <title>quiz web app</title>
         <h1> quiz web app</h1>
-        <Link href="/quiz">
-          <button>start the quiz </button>
+        <Link href="/user">
+          <button>Login/signup</button>
         </Link>
       </div>
   );

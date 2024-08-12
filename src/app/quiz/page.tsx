@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState ,useEffect } from 'react';
 import { quiz } from '../data';
 import { useRouter } from 'next/navigation.js';
 
@@ -41,6 +41,12 @@ const Page: React.FC = () => {
     setSelectedAnswerIndex(idx);
     setSelectedAnswer(answer === correctAnswer);
   };
+  useEffect(() => {
+    const user = localStorage.getItem('users');
+    if (!user) {
+      router.push('/user'); 
+    }
+  }, [router]);
 
   const nextQuestion = () => {
     setSelectedAnswerIndex(null);
