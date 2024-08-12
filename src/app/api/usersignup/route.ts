@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
       "INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING id, username, email",
       [username, email, hashedPassword]
     );
-    return NextResponse.json({ user: result.rows[0] }, { status: 201 });
+    return NextResponse.json({ user: result.rows[0] }, { status: 200 });
 
   } catch (error: any) {
     if (error.code === "23505") {
