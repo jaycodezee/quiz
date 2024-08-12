@@ -13,6 +13,7 @@ const AuthPage: React.FC = () => {
 
   return (
     <div className="container">
+      <title>User Login / Signup</title>
       <AuthForm isLogin={isLogin} toggleForm={toggleForm} />
       <button onClick={()=>router.push('/')}>Back to Home</button>
     </div>
